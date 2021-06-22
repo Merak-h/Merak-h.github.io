@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/html5reset-1.6.1.css">
+  <!--<link rel="stylesheet" href="css/clock.css">-->
+  <link id="style" rel="stylesheet" href="css/light.css">
+  
+  <title>Document</title>
+</head>
+<body id="body">
+  <div class="background"></div>
+  <div id="contentsErea" class="contents-erea">
+    <div id="clockErea" class="clock">
+      <p id="clock"></p>
+    </div>
+    <div id="dateErea" class="dateErea">
+      <p id="date"></p>
+      <p id="week"></p>
+    </div>
+  </div>
+  
+  <div id="setting">
+  <div id="settingImage" class="setting"></div> 
+  <div id="settingErea"></div>
+  </div>
+
+
+</body>
+</html>
+<script>//clock
+let mode = 1;
+let format = false;
+let sec = true;
+let dispDate = false;
+let dispWeek = false;
+let font = 'font7';
+
+function dispMode(mode){
+          //console.log(mode);
+          const css = document.getElementById('style');
+          if (mode!=2){
+            css.href = "css/light.css";
+          }else{
+            css.href = "css/dark.css";
+          }
+        }
+
+  const h = document.getElementById('clockErea');
+  
+  
+  function reload(){
+    const oldTime = document.getElementById('clock');
+    oldTime.remove();
+    
+    const date = new Date();
+    let hour = ('00'+date.getHours()).slice(-2);
+    if (format){
+      if (hour>=13){
+        hour = 'pm '+('00'+(date.getHours()-12)).slice(-2);
+      }else{
+        hour = 'am '+('00'+date.getHours()).slice(-2);
+      }
+    }
+    const minute = ('00'+date.getMinutes()).slice(-2);
+    const second = ('00'+date.getSeconds()).slice(-2);
+    let time = null;
+    
+
+    if (sec){
+      time = hour+':'+minute+':'+second;
+    }else{
+      time = hour+':'+minute;
+    }
+    const clock = document.createElement('p');
+    clock.id = 'clock';
+    clock.classList.add(font)
+    clock.textContent =  time;
+    h.appendChild(clock);
+
+
+
+
+    const oldDate = document.getElementById('date');
+    const dateaerea = document.getElementById('dateErea');
+    oldDate.remove();
+    const newDate = document.createElement('p');
+    newDate.id = 'date';
+    newDate.classList.add('date');
+    newDate.classList.add(font);
+    dateaerea.appendChild(newDate);
+    let mAndD = '';
+    if (dispDate){
+      mAndD = ('00'+(date.getMonth()+1)).slice(-2)+'/'+('00'+date.getDate()).slice(-2);
+    }else{
+      mAndD = '';
+    }
+    newDate.textContent = mAndD;
+
+
+
+    const oldWeek = document.getElementById('week');
+    oldWeek.remove();
+    const newWeek = document.createElement('p');
+    newWeek.id = 'week';
+    newWeek.classList.add('week');
+    newWeek.classList.add(font);
+    dateaerea.appendChild(newWeek);
+    let todayWeek = '';
+    const weekArr=[
+      'Sunday','Monday','Tuseday','Wednesday','Thursday','Friday','Saturday'
+    ]
+    if (dispWeek) {
+      todayWeek = weekArr[date.getDay()];
+    }else{
+      todayWeek ='';
+    }
+    newWeek.textContent = todayWeek;
+
+
+
+    if(mode==3){
+     const hms = ('00'+date.getHours()).slice(-2)+minute+second;
+     //console.log(hms)
+     if (062500<=hms && hms<183456){
+       dispMode(1);
+     }else{
+       dispMode(2);
+     }
+   }
+
+
+  }
+  const timer=setInterval(reload,100);
+  
+</script>
+
+<script>//setting
+let settingImage = document.getElementById('settingImage');
+//const settingErea = document.getElementById('setting');
+settingImage.addEventListener('click',()=>{
+
+    //Modoの初期化
+    let lightMode = '';
+    let darkMode = '';
+    let autoModo ='';
+    if(mode==1){ 
+    lightMode = 'radiosed';
+    darkMode = 'radios';
+    autoModo ='radios';
+    }else if (mode==2){
+      lightMode = 'radios';
+    darkMode = 'radiosed';
+    autoModo ='radios';
+    }else{
+      lightMode = 'radios';
+    darkMode = 'radios';
+    autoModo ='radiosed';
+    }
+    //formatno初期化
+    let newformat = '';
+    let newsec = '';
+    let newdispDate = '';
+    let newdispWeek = '';
+    if (format){newformat =  'turn-on';
+    }else{newformat =  'turn-off';}
+    if (sec){newsec =  'turn-on';
+    }else{newsec =  'turn-off';}
+    if (dispDate){newdispDate = 'turn-on'; 
+    }else{newdispDate = 'turn-off';}
+    if (dispWeek){newdispWeek = 'turn-on'; 
+    }else{newdispWeek = 'turn-off';}
+
+
+
+
+function previewImage(obj){
+  console.log('obj')
+	/*var fileReader = new FileReader();
+	fileReader.onload = (function() {
+    console.log('obj')
+		//document.getElementById('preview').src = fileReader.result;
+	});
+	fileReader.readAsDataURL(obj.files[0]);*/
+}
+
+
+
+
+
+
+
+  const settingErea = document.getElementById('settingErea');
+  setting.appendChild(settingErea);
+  settingImage.style.display = 'none';
+  const setText='<div id="ereamode" class="setting-erea"></div>'+
+                '<div id="close" class="close"></div>'+
+                '<ul id="ulmode" class="setting-ul">'+
+                    '<li>'+
+                      '<div class="appearanceerea">'+
+                        '<p class="content">アピアランス</p>'+
+                        '<div class="appearance">'+
+                        '<div>'+
+                          '<p>Light</p>'+
+                          '<div id="radio1" class="'+lightMode+'"></div>'+
+                        '</div>'+
+                        '<div>'+
+                          '<p>Dark</p>'+
+                          '<div id="radio2" class="'+darkMode+'"></div>'+
+                        '</div>'+
+                        '<div>'+
+                          '<p>Auto</p>'+
+                          '<div id="radio3" class="'+autoModo+'"></div>'+
+                        '</div>'+
+                        '</div>'+
+                      '</div>'+
+                    '</li>'+
+                    '<li>'+
+                      '<div class="back-photo">'+
+                        '<p class="content">背景</p>'+
+                        '<div class="preview">'+
+                          '<div class="oldpic"></div>'+
+                          '<label class="newpic" for="filephoto">'+
+                            '<img　id="preview" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">'+
+                            '<input id="filephoto" type="file" style="display:none;" accept="image/*" onchange="previewImage(this);">'+
+                          '</label>'+
+                        '</div>'+
+                      '</div>'+
+                    '</li>'+
+                    '<li>'+
+                      '<p class="content">12時間表示を有効にする</p>'+
+                      '<div id="swhitch1" class="button '+newformat+'"></div>'+
+                    '</li>'+
+                    '<li>'+
+                      '<p class="content">秒を表示する</p>'+
+                      '<div id="swhitch2" class="button '+newsec+'"></div>'+
+                    '</li>'+
+                    '<li>'+
+                      '<p class="content">日付を表示する</p>'+
+                      '<div id="swhitch3" class="button '+newdispDate+'"></div>'+
+                    '</li>'+
+                    '<li>'+
+                      '<p class="content">曜日を表示する</p>'+
+                      '<div id="swhitch4" class="button '+newdispWeek+'"></div>'+
+                    '</li>'+
+                    '<li>'+
+                      '<div>'+
+                        '<p class="content">フォント</p>'+
+                        '<ul class="font-ul">'+
+                          '<li id="font1" class="font1"><p>Courier New</p></li>'+
+                          '<li id="font2" class="font2"><p>Franklin</p></li>'+
+                          '<li id="font3" class="font3"><p>Gill Sans</p></li>'+
+                          '<li id="font4" class="font4"><p>Lucida Sans</p></li>'+
+                          '<li id="font5" class="font5"><p>Segoe UI</p></li>'+
+                          '<li id="font6" class="font6"><p>Times New Roman</p></li>'+
+                          '<li id="font7" class="font7"><p>Trebuchet MS</p></li>'+
+                          '<li id="font8" class="font8"><p>Arial</p></li>'+
+                          '<li id="font9" class="font9"><p>Cambria</p></li>'+
+                          '<li id="font10" class="font10"><p>Georgia</p></li>'+
+                        '</ul>'+
+                      '</div>'+
+                    '</li>'+
+                '</ul>';
+    settingErea.innerHTML = setText;
+    //Fontの初期化
+    document.getElementById(font).classList.add('using')
+
+
+
+
+
+    //setting-close アクション
+    const closeImage = document.getElementById('close');
+    const ereaMode = document.getElementById('ereamode');
+    function close(){
+      settingErea.innerHTML = '';
+      settingImage.style.display = 'flex';
+    }
+    closeImage.addEventListener('click',()=>{close()})
+    ereaMode.addEventListener('click',()=>{close();})
+   
+
+    //formatの設定 
+    for(var ii=1; ii<=4; ii++){
+      const swhitch = document.getElementById('swhitch'+ii)
+      console.log(swhitch)
+      swhitch.onclick =( (i)=>{
+        return function (){
+          let type = '';
+          if(i==1){type = format;
+          }else if(i==2){type = sec;
+          }else if(i==3){type = dispDate;
+          }else{type = dispWeek;}
+          
+          if(!(type)){
+            swhitch.classList.add('turn-on');
+            swhitch.classList.remove('turn-off');
+            type =true;
+          }else{
+            swhitch.classList.add('turn-off');
+            swhitch.classList.remove('turn-on');
+            type =false;
+          }
+          if(i==1){format = type;
+          }else if(i==2){sec = type;
+          }else if(i==3){dispDate = type;
+          }else{dispWeek = type;}
+        }
+      })(ii)
+    }
+/*意味
+    const sN = document.getElementById('swhitchN');
+
+    sN.onclick = ()=>{
+            if (!(format)){
+                sN.classList.add('turn-on');
+                sN.classList.remove('turn-off');
+                format = true;
+            }else{
+                sN.classList.remove('turn-on');
+                sN.classList.add('turn-off');
+                format = false;
+            }
+        }
+*/
+
+    //display modeの設定 
+    for(var ii=1; ii<=3; ii++){
+      document.getElementById('radio'+ii).onclick =( (i)=>{
+        return function (){
+          mode=i;
+          dispMode(i);
+          for(l=1; l<=3; l++){
+            radioC=document.getElementById('radio'+l);
+            if(l==i){
+              radioC.classList.remove('radios');
+              radioC.classList.add('radiosed');
+            }else{
+              radioC.classList.add('radios');
+              radioC.classList.remove('radiosed');
+            }
+          }
+        }
+      })(ii)
+    }
+        /*意味  
+    const radioN = document.getElementById('radioN');
+    radioN.onclick = ()=>{
+            radio1.classList.add('radiosed');
+            radio1.classList.remove('radios');
+
+            radio2.classList.add('radios');
+            radio2.classList.remove('radiosed');
+            radio3.classList.add('radios');
+            radio3.classList.remove('radiosed');
+
+            body.classList.add('light');
+            body.classList.remove('dark');
+
+            mode = 1;
+            dispMode(1); 
+    }
+*/
+//fontの関数
+for(var ii=1; ii<=10; ii++){
+  document.getElementById('font'+ii).onclick =( (i)=>{
+    return function (){
+      font = 'font'+i;
+      for(l=1; l<=10; l++){
+        fontCN='font'+l;
+        fontC=document.getElementById(fontCN);
+        if(l!=i){
+          fontC.classList.remove('using');
+        }else{
+          fontC.classList.add('using');
+        }
+      }
+    }
+  })(ii)
+}
+/*意味
+  function fontClass(i){
+    font = 'font'+i;
+    for(l=1; l<=10; l++){
+      fontCN='font'+l;
+      fontC=document.getElementById(fontCN);
+      if(l!=i){fontC.classList.remove('using');
+      }else{fontC.classList.add('using');}
+    }
+  }
+document.getElementById('fontN').onclick = ()=>{ fontClass(N)};
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  })
+
+
+  
+</script>
