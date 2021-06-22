@@ -8,7 +8,6 @@ body{
     padding: 0px;
     width: 100vw;
     height: 100vh;
-    background-image: url(../images/b.jpg);
     background-size: cover;
     background-position-x: center;
     background-repeat: no-repeat;
@@ -22,8 +21,8 @@ body{
   transform: translate(-50%,-50%);
   text-align: center;
   z-index: 0;
-  color: #fff;
-  text-shadow:2vw 2vw 6vw #222;
+  color: rgba(237, 237, 237, 0.783);
+  text-shadow:2vw 2vw 6vw rgb(19, 19, 19);
   font-family:'Courier New', Courier, monospace;
 }
 .clock{
@@ -113,9 +112,11 @@ body{
   animation-name: blur;
   animation-duration:0.4s;
   animation-timing-function:ease-out;
-  animation-fill-mode:forwards;
+  /*animation-fill-mode:forwards;*/
   animation-play-state:running;
   background-color: #1414145e;
+  backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
   
   }
   @keyframes blur{
@@ -283,3 +284,40 @@ body{
   color: #b1b1b1;
   border-bottom: solid #b1b1b1 1px;
 }
+.back-photo{
+  width: 100%;
+}
+.preview-ul{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+.preview-li{
+  display: inline-block;
+}
+.preview{
+  /*margin-top: 30px;
+  margin-bottom: 30px;*/
+  width: 92px;
+  height: 90px;
+  margin-bottom: 20px;
+  background-size: cover;
+  background-position-x: center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  border: solid #6a6a6a 4px ;
+  box-shadow: #1f1f1f 8px 8px 16px;
+}
+.back-photo1{
+  /*background-image: url(../images/b1.jpg);*/
+}
+.back-photo2{
+  background-image: url(../images/b2.jpg);
+}
+.back-photo3{
+  background-image: url(../images/b3.jpg);
+}
+
