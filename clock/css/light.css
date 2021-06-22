@@ -8,7 +8,6 @@ body{
     padding: 0px;
     width: 100vw;
     height: 100vh;
-    background-image: url(../images/b.jpg);
     background-size: cover;
     background-position-x: center;
     background-repeat: no-repeat;
@@ -23,7 +22,7 @@ body{
     text-align: center;
     z-index: 0;
     color: #fff;
-    text-shadow:2vw 2vw 6vw #ffffff;
+    text-shadow:2vw 2vw 6vw #6c6c6c;
     font-family:'Courier New', Courier, monospace;
 }
 .clock{
@@ -45,7 +44,7 @@ body{
 
 
 .setting{
-    background-image: url(../images/setting_white.png);
+    background-image: url(../images/setting_gray.png);
     opacity: 0.0;
     background-size: cover;
     background-repeat: no-repeat;
@@ -289,16 +288,23 @@ body{
 .back-photo{
   width: 100%;
 }
-
-.oldpic{
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+.preview-ul{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+.preview-li{
+  display: inline-block;
+}
+.preview{
   /*margin-top: 30px;
   margin-bottom: 30px;*/
   width: 92px;
   height: 90px;
-  background-image: url(../images/b.jpg);
+  margin-bottom: 20px;
   background-size: cover;
   background-position-x: center;
   background-repeat: no-repeat;
@@ -306,6 +312,17 @@ body{
   border: solid #d8d8d8 4px ;
   box-shadow: #8c8c8c 8px 8px 16px;
 }
+.back-photo1{
+  /*background-image: url(../images/b1.jpg);*/
+}
+.back-photo2{
+  background-image: url(../images/b2.jpg);
+}
+.back-photo3{
+  background-image: url(../images/b3.jpg);
+}
+
+/*
 .newpic{
   display: inline-block;
   position: relative;
@@ -330,3 +347,4 @@ body{
   background-color: rgba(0, 0, 0, 0.297);
   border-radius: 20px;
 }
+*/
