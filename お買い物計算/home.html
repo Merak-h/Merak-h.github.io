@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="html5reset-1.6.1.css">
+    <title>Document</title>
+</head>
+<body class="body">
+    <h1 class="title">お買い物計算</h1>
+    <div class="main">
+        <input type="text" id="data" class="input">
+        <!--<button id="button0">税込(通常10%)</button>
+        <button id="button1">税込(軽減8％)</button>-->
+        <div>
+            <div><button id="button1" class="btn">税込</button></div>
+            <div><button id="button2" class="btn">税抜き(通常10%)</button></div>
+            <div><button id="button3" class="btn">税抜き(通常8%)</button></div>
+        </div>
+    </div>
+    <div><button id="back" class="btn back">直前の入力を削除</button></div>
+
+    <div class="result">
+        <h2 class="h2">合計(税込):</h2>
+        <p id="result">￥0</p>
+    </div>
+
+    <div class="history">
+        <h3>履歴</h3>
+        <ol id="list" reversed></ol>
+    </div>
+        
+    <div class="cancel"><button id="cancel" class="btn">リセット</button></div>
+</body>
+<script>
+    //各種変数
+    let cart = [];
+    let sum = 0;
+    //各種要素の取得
+    const inputData = document.getElementById('data');
+    const result = document.getElementById('result');
+    const list = document.getElementById('list');
+    const back = document.getElementById('back');
+    const cancel = document.getElementById('cancel');
+
+    //機構：入力のリアルタイムの３桁区切り
+    inputData.addEventListener('keyup',()=>{
+        //let num = cCut(num);
+        let num = inputData.value.replace(/,/g, '');
+        num = Number(num);
+        if(isNaN(num)){
+            window.alert("数値を入力してください");
+            inputData.value=null;
+        }else{
+            inputData.value=num.toLocaleString()
+        }
+        
+    })
+    //関数：コンマの排除
+    function cCut(val){
+        return Number(val.replace(/,/g, ''));
+    }
+
+
+    //機構：計上
+    for(let i=1; i<4; i++){
+        document.getElementById('button'+i).addEventListener('click', ()=>{btn(i)})
+    }
+    //関数：計上
+    function btn(i){
+        cart.push([Number(cCut(inputData.value)),i,true])
+        func();
+        liCreate(cCut(inputData.value),i,cart.length-1);
+        inputData.value = null;
+    };
+
+    //機構：直前の入力の削除
+    back.addEventListener('click',()=>{
+        let n = cart.length-1;
+        for(n; n>=0; n--){
+            if(cart[n][2]){
+                dlt(n)
+                break;
+            }
+        } 
+    })
+
+    //機構：リセット
+    cancel.addEventListener('click',()=>{
+        location.reload();
+    })
+
+    //関数：計算
+    function func(){
+        sum = 0;
+        cart.forEach(element => {
+            if(element[2]){
+                switch(element[1]){
+                    case 0:
+                    case 1:
+                        sum = sum+Number(element[0]);
+                        break;
+                    case 2:
+                        sum = sum+(Number(element[0])+Math.floor((Number(element[0])/10)));
+                        break;
+                    case 3:
+                        sum = sum+(Number(element[0])+Math.floor((Number(element[0])/100*8)));
+                        break;
+                }
+            }  
+        });
+        result.innerHTML = '￥'+ sum.toLocaleString();
+    }
+    //関数：履歴の作成
+    function liCreate(value,bN,arrNo){
+        let op0 = "";
+        let op1 = "";
+        let op2 = "";
+        let op3 = "";
+        switch(bN){
+            case 0:　
+                op0 = "selected";
+                break;
+            case 1:　
+                op1 = "selected";
+                break;
+            case 2:　
+                op2 = "selected";
+                break;
+            case 3:　
+                op3 = "selected";
+                break;
+        }
+        //生成：ul Elements
+        const contents = document.createElement('li');
+        contents.setAttribute("id",arrNo);
+        contents.className='li'
+        contents.innerHTML = "<p>￥"+Number(value).toLocaleString()+"</p>"+
+                                "<select>"+
+                                    //"<option "+op0+" value='0'>税込(通常10%)</option>"+
+                                    //"<option "+op1+" value='1'>税込(軽減8％)</option>"+
+                                    "<option "+op1+" value='1'>税込</option>"+
+                                    "<option "+op2+" value='2'>税抜き(通常10%)</option>"+
+                                    "<option "+op3+" value='3'>税抜き(通常8%)</option>"+
+                                "</select>"+
+                                "<button class='btn'>削除</button>"
+        list.insertBefore(contents,list.firstChild);
+
+
+        //機構の追加：削除
+        contents.lastElementChild.addEventListener('click',()=>{dlt(arrNo)})
+        //機構の追加：税率変更
+        contents.children[1].addEventListener('change',()=>{change(arrNo,contents.children[1].value)});
+    }
+
+    //関数：delete作業
+    function dlt(i){
+        cart[i][2]=false;
+        let parent = document.getElementById(i)
+        parent.remove();
+        func();
+    }
+    //関数：税率変更作業
+    function change(i,value){
+        cart[i][1]=Number(value);
+        func();
+    }
+</script>
+</html>
