@@ -7,7 +7,7 @@ body{
     min-width: 780px;
     width: 100%;
     height: 2160px;
-    background-image: url(images/layer1.png);
+    background-image: url(images/layer1.PNG);
     background-repeat: no-repeat;
     background-size: contain;
 }
@@ -23,7 +23,7 @@ body{
     margin-top: 0px;
     width: 100%;
     height: 100%;
-    background-image: url(images/layer2.png);
+    background-image: url(images/layer2.PNG);
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -39,7 +39,7 @@ body{
     
     width: 100%;
     height: 100%;
-    background-image: url(images/layer3.png);
+    background-image: url(images/layer3.PNG);
     background-size: 100%;
     background-repeat: no-repeat;
 }
