@@ -147,10 +147,12 @@ h1{
         .controller{
 
             position: absolute;
-            top: 72%;
+            bottom: 5%;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
+            padding-bottom: 20px;
+            box-sizing: border-box;
         }
         .duplicate{
             display: flex;
