@@ -109,7 +109,7 @@ h1{
     left: 0%;
     overflow: hidden;
     width: 100vw;
-    height: calc(100vh - 286px);
+    height: calc(90vh - 286px);
     .contents{
         position: absolute;
         top: 0%;
@@ -197,7 +197,7 @@ h1{
     }
     .historyContainer{
         width: 100%;
-        height: calc(100vh - 286px);
+        height: calc(90vh - 286px);
         padding: 20px;
         box-sizing: border-box;
         overflow:auto;
