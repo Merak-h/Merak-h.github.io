@@ -1,5 +1,6 @@
 body {
   padding: 20px;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .header {
@@ -133,6 +134,11 @@ h1 span {
   padding: 20px;
   box-sizing: border-box;
 }
+.contentsContainer .ruretto .serihu span {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
 .contentsContainer .ruretto .controller {
   position: absolute;
   top: 72%;
@@ -214,12 +220,11 @@ h1 span {
   font-size: 10px;
 }
 .contentsContainer .historyContainer .resetBtn {
-  position: fixed;
-  top: 270px;
-  transform: translateX(-20px);
+  position: sticky;
+  top: -24px;
   width: 100%;
   background-color: #fff;
-  padding: 10px;
+  padding: 10px 0;
   box-sizing: border-box;
   display: flex;
   justify-content: right;
@@ -232,5 +237,5 @@ h1 span {
   background-color: #c85353;
   color: #fff;
   font-size: 10px;
-  margin-right: 18px;
+  margin-right: 6px;
 }/*# sourceMappingURL=index.css.map */
