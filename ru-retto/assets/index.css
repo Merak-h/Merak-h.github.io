@@ -1,7 +1,10 @@
-body {
+.body {
   padding: 20px;
   font-family: "Courier New", Courier, monospace;
   touch-action: manipulation;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .header {
@@ -134,11 +137,17 @@ h1 span {
   min-height: 100px;
   padding: 20px;
   box-sizing: border-box;
+  -webkit-user-select: text;
+     -moz-user-select: text;
+          user-select: text;
 }
 .contentsContainer .ruretto .serihu span {
   display: block;
   text-align: center;
   width: 100%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 .contentsContainer .ruretto .controller {
   position: absolute;
@@ -212,6 +221,9 @@ h1 span {
 .contentsContainer .historyContainer .historyList li p {
   margin: 0;
   width: calc(100% - 60px);
+  -webkit-user-select: text;
+     -moz-user-select: text;
+          user-select: text;
 }
 .contentsContainer .historyContainer .historyList li button {
   width: 60px;
