@@ -1,17 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/styles/html5reset-1.6.1.css">
+    <link rel="stylesheet" href="assets/styles/index.css">
     <title>Document</title>
 </head>
 <body>
+    <header>
+        <div class="logo_container"><img class="logo" src="assets/images/SVG/logo.svg" height="300" width="400" alt="logo"></div>
+        <div class="hbg_menu">
+            <div class="hbg_menu_button" id="hbgMenuButton">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="hbg_menu_container hidden" id="hbgMenuContainer">
+                <ul class="hbg_menu_list">
+                    <li><a>top</a></li>
+                    <li><a href="profile.html">profile</a></li>
+                    <li><a href="https://github.com/Merak-h">GitHub</a></li>
+                    <li><a href="portfolio">portfolio</a></li>
+                    <li><a href="settings">settings</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     <h1>
-        Hello World of the New Web Site.
+        Wellcome Merak's GitHub.
     </h1>
-    <p>This is the test open web site for github for the first time.</p>
-    <img src="cat.jpg" alt="sample image.">
-        <a href="clock/clock.html">Clock</a>
+    <h2>here are my main projects. </h2>
+    <p>Please understand that there may be many imperfections as this was created during the process of learning programming.</p>
+    <ul>
+        <li><iframe title="clock" src="clock/clock.html"></iframe><a href="clock/clock.html"><p>clock.</p></a></li>
+        <li><iframe title="parallaxeffect" src="parallax-effect/index.html"></iframe><a href="parallax-effect/index.html"><p>parallax-effect.</p></a></li>
+        <li><iframe title="roulette" src="ru-retto%2F%E3%83%AB%E3%83%BC%E3%83%AC%E3%83%83%E3%83%88.html"></iframe><a href="ru-retto%2F%E3%83%AB%E3%83%BC%E3%83%AC%E3%83%83%E3%83%88.html"><p>roulette.</p></a></li>
+    </ul>        
+<script src="assets/js/index.js"></script>
 </body>
 </html>
