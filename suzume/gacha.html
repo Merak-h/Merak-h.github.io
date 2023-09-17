@@ -83,6 +83,10 @@
             <!-- <p class="listenerCaption">名前で判断してるから、同じ人が複数回す時は、同じ名前で登録してね！<br> 
             逆にリスナーさんは全員違う名前で登録してね！同じ名前だと同一人物って登録しちゃうから注意！</p>-->
             <label class="timeslabel"><input class="timesInput" id="times" type="number" value="1"></label>
+            <div class="reliefArea">
+                <p class="reliefCap">10連SSR確定</p>
+                <label class="reliefBox"><input type="checkbox" class="relief" id="relief" name="relief"></label>
+            </div>
             <button class="rouletteButton" id="rouletteRutton">ルーレットを回す！</button>
             <div id="contaierResult">
                 <p class="result">結果</p>
@@ -166,8 +170,8 @@
     const setRate = document.querySelectorAll('.setRate');
     sumRate()
     for(elm of setRate){
-        elm.addEventListener('keyup',()=>{sumRate()});
-        elm.addEventListener('change',()=>{sumRate()});
+        elm.addEventListener('keyup',()=>{sumRate();setStrage();});
+        elm.addEventListener('change',()=>{sumRate();setStrage();});
     }
     // ratePreview 用
     function sumRate(){
@@ -195,6 +199,7 @@
             prizeName.value='';
             const prizeRarityValue = prizeRarity.value;
             addPrizeList(prizeNameValue,prizeRarityValue)
+            setStrage();
         }
     })
 
@@ -269,6 +274,7 @@
             SaveButton.addEventListener('click',()=>{
                 addPrizeList(nameInput.value,rarityInput.value);
                 Newcard.remove();
+                setStrage();
             })
 
             // cancelButton.addEventListener('click',()=>{
@@ -285,6 +291,7 @@
             // })
             deleteButton.addEventListener('click',()=>{
                 Newcard.remove();
+                setStrage();
             })
         })
                 
@@ -318,14 +325,12 @@
     
     
     saveData.addEventListener('click',()=>{
-        setStrage()
+        console.log('vsfhulaui')
+        setStrage();
         let e=0;
         const setRate = document.querySelectorAll('.setRate');
         for(i=0; i<setRate.length; i++){
-            
             e += Number(setRate[i].value)
-            
-            
         }
         if(e!=100){
             alert("確率の合計が100%になっていません！")
@@ -408,14 +413,30 @@ const rouletteRutton = document.getElementById('rouletteRutton');
 
 rouletteRutton.addEventListener('click',()=>{
     const contaierResult = document.getElementById('contaierResult');
-    const listenerInput = document.getElementById('listenerInput').value;
+    const inputValue = document.getElementById('listenerInput').value;
+    const listenerInput = inputValue === "" ? "名前未設定" : inputValue;
     const listener = document.getElementById('listener');
     const listOfResult = document.getElementById('listOfResult');
 
     const times = document.getElementById('times').value;
     listOfResult.innerHTML='';
+    const relief = document.getElementById('relief');
+
+    
+    const retrievedJsonText = localStorage.getItem("settingDate");
+    const settingData =  JSON.parse(retrievedJsonText);
+
     for(i=0; i<times; i++){
-        let result = roulette();
+        let result
+        if(relief.checked && i % 10 === 9 && settingData.prizes.SSR!=''){
+            let boolen = true;
+            while(boolen){
+                result = roulette();
+                if(result[1]=="SSR"){boolen=false}
+            }
+        }else{
+            result = roulette();
+        }
         if(!result){break}
         if(i==0){listener.innerHTML=listenerInput}
         const card = document.createElement('li');
@@ -426,7 +447,6 @@ rouletteRutton.addEventListener('click',()=>{
         elmResultName.innerHTML = result[0]
         card.appendChild(elmResultRarity);
         card.appendChild(elmResultName);
-        
         result.push(listenerInput)
         saveResult(result);
     }
@@ -651,6 +671,7 @@ function showHistory(data){
                     cardElm.innerHTML="";
                     listenerElm.innerHTML=listenerInputElm.value;
                     cardElm.appendChild(listenerElm);
+                    console.log(listenerElm)
                     cardElm.appendChild(priseElm);
                     cardElm.appendChild(rarityElm);
                     cardElm.appendChild(editButton);

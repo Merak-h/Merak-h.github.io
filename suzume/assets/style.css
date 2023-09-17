@@ -446,4 +446,48 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 10px;
+}
+
+.reliefArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reliefCap {
+  font-size: 12px;
+  display: block;
+  width: 80px;
+}
+
+.reliefBox {
+  display: block;
+  width: 50px;
+  height: 30px;
+  border-radius: 600px;
+  background-color: #aaaaaa;
+  margin: 20px;
+  margin-right: 0px;
+  position: relative;
+}
+.reliefBox::before {
+  content: "";
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 600px;
+  background-color: #ffffff;
+  position: absolute;
+  transform: translate(2px, 2px);
+  top: 0%;
+  left: 0%;
+}
+
+.reliefBox:has(.relief:checked)::before {
+  left: 40%;
+  background-color: #1ddd1d;
+}
+
+.relief {
+  display: none;
 }/*# sourceMappingURL=style.css.map */
