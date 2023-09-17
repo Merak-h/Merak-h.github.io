@@ -99,6 +99,7 @@ body{
                 // padding-right: 30px;
                 box-sizing: border-box;
                 position: relative;
+                padding: 4px 8px !important;
             }
             &::after{
                 position: absolute;
@@ -183,6 +184,7 @@ body{
         list-style: none;
         display: flex;
         justify-content: space-between; 
+        margin-bottom: 40px;
     }
     .containerListUl{
         width: 100%;

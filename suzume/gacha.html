@@ -21,6 +21,7 @@
         </div>
         <div class="container">
             <h2 class="subTitle">ガチャの設定！</h2>
+            <button class="saveDataButton" id="saveData">保存</button>
             <div class="setrarity">
                 <div>
                     <h3 class="contentTitle">レア度の調整をしてね！</h3>
@@ -72,7 +73,7 @@
                     </ul>
                 </div>
             </div>
-            <button class="saveDataButton" id="saveData">保存</button>
+            <!-- <button class="saveDataButton" id="saveData">保存</button> -->
         </div>
 
 
@@ -133,6 +134,7 @@
         const retrievedJsonText = localStorage.getItem("settingDate");
         const settingData =  JSON.parse(retrievedJsonText);
         if(settingData===null){
+            setStrage()
             return}
 
         const setRate = document.querySelectorAll('.setRate');
@@ -309,7 +311,8 @@
     }
 
     const saveData = document.getElementById('saveData');
-    saveData.addEventListener('click',()=>{
+    saveData.addEventListener('click',setStrage())
+    function setStrage(){
         const listOfN = ()=>{
             const elms = document.querySelectorAll('.cardN');
             let array = [];
@@ -373,7 +376,7 @@
         const jsonText = JSON.stringify(newArrayOfData);
         localStorage.setItem("settingDate", jsonText);
 
-    })
+    }
 
 
 // ############################
@@ -463,7 +466,7 @@ function roulette(){
 function saveResult(result){
     let logId = 0;
     // ローカルストレージに保存
-    const retrievedJsonText = localStorage.getItem("history");
+    const retrievedJsonText = localStorage.getItem("gamelog");
     const data =  JSON.parse(retrievedJsonText);
     let history =[];
     if(data){
@@ -474,7 +477,7 @@ function saveResult(result){
     
     history.push(newResult);
     const jsonText = JSON.stringify(history);
-    localStorage.setItem("history", jsonText);
+    localStorage.setItem("gamelog", jsonText);
 
     // 履歴の所に表示
     // 履歴の変更処理
@@ -575,7 +578,7 @@ function showHistory(data){
                 const userConfirmed = confirm("本当に削除しますか？");
                 if (userConfirmed) {
                     // ユーザーが OK をクリックした場合の動作
-                    const retrievedJsonText = localStorage.getItem("history");
+                    const retrievedJsonText = localStorage.getItem("gamelog");
                     const allData = JSON.parse(retrievedJsonText);
                     console.log(allData);
                     const ndwData = allData.filter((item) => {
@@ -591,7 +594,7 @@ function showHistory(data){
                     });
                     console.log(ndwData);
                     const jsonText = JSON.stringify(ndwData);
-                    localStorage.setItem("history", jsonText);
+                    localStorage.setItem("gamelog", jsonText);
                     cardElm.remove();
 
                 } else {
@@ -614,7 +617,7 @@ function showHistory(data){
                     cardElm.appendChild(rarityElm);
                     cardElm.appendChild(editButton);
 
-                    const retrievedJsonText = localStorage.getItem("history");
+                    const retrievedJsonText = localStorage.getItem("gamelog");
                     const allData = JSON.parse(retrievedJsonText);
                     console.log(allData);
                     const newData = allData.map(item => {
@@ -626,7 +629,7 @@ function showHistory(data){
                     });
                     console.log(newData);
                     const jsonText = JSON.stringify(newData);
-                    localStorage.setItem("history", jsonText);
+                    localStorage.setItem("gamelog", jsonText);
                     
                     
 
@@ -682,7 +685,7 @@ resetHistroyButton.addEventListener('click',()=>{
                     const listOfHistory = document.getElementById('listOfHistory');
                     listOfHistory.innerHTML='';
                     const jsonText = JSON.stringify([]);
-                    localStorage.setItem("history", jsonText);
+                    localStorage.setItem("gamelog", jsonText);
                     alert("履歴を削除しました。")
 
                 } else {
