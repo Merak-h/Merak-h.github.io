@@ -349,7 +349,8 @@ body {
 }
 
 .listOfHistory {
-  width: 100vw;
+  width: 98vw;
+  margin-bottom: 60px;
 }
 .listOfHistory li {
   font-size: 10px;
