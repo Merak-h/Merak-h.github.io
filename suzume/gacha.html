@@ -130,9 +130,9 @@
     // 初期化
     load();
     function load(){
-        console.log()
+        
         history();
-        console.log()
+        
         const retrievedJsonText = localStorage.getItem("settingDate");
         const settingData =  JSON.parse(retrievedJsonText);
         if(settingData===null){
@@ -167,6 +167,7 @@
     sumRate()
     for(elm of setRate){
         elm.addEventListener('keyup',()=>{sumRate()});
+        elm.addEventListener('change',()=>{sumRate()});
     }
     // ratePreview 用
     function sumRate(){
@@ -313,10 +314,23 @@
     }
 
     const saveData = document.getElementById('saveData');
-    console.log()
-    console.log()
-    console.log()
-    saveData.addEventListener('click',()=>{setStrage()})
+    
+    
+    
+    saveData.addEventListener('click',()=>{
+        setStrage()
+        let e=0;
+        const setRate = document.querySelectorAll('.setRate');
+        for(i=0; i<setRate.length; i++){
+            
+            e += Number(setRate[i].value)
+            
+            
+        }
+        if(e!=100){
+            alert("確率の合計が100%になっていません！")
+        }
+    })
     function setStrage(){
         const listOfN = ()=>{
             const elms = document.querySelectorAll('.cardN');
@@ -432,17 +446,18 @@ function roulette(){
     return false;
    }
    const n = Number(settingData['rarity'][0])*0.01;
-   
+   const ns = Number(settingData['rarity'][0])
    const r = Number(settingData['rarity'][1])*0.01;
-   
+   const rs = Number(settingData['rarity'][1])
    const sr = Number(settingData['rarity'][2])*0.01;
-   
+   const srs = Number(settingData['rarity'][2])
    const ssr = Number(settingData['rarity'][3])*0.01;
-   
+   const ssrs = Number(settingData['rarity'][3])
    const ur = Number(settingData['rarity'][4])*0.01;
-   
+   const urs = Number(settingData['rarity'][4])
    // n+r+sr+ssr+ur=１になる想定
-   if(n+r+sr+ssr+ur!=1){
+   
+   if(ns+rs+srs+ssrs+urs!=100){
        alert('確率の合計が100%になっていません！');
        return false;
     }
@@ -481,7 +496,12 @@ function saveResult(result){
     let history =[];
     if(data){
         history= data;
-        logId = Number(data[data.length-1].id) + 1;
+        if(data[data.length-1]!=undefined){
+
+            logId = Number(data[data.length-1].id) + 1;
+        }
+        // if(data[data.length-1].id!=null){
+        // }
     }
     const newResult={id:logId,listener:result[2],prizeRarity:result[1],prizeName:result[0]}
     
@@ -494,10 +514,10 @@ function saveResult(result){
 
 }
 function history(){
-    console.log()
+    console.log('scdjclsj')
     let data = searchHistory();
-    console.log()
-    console.log()
+    
+    
     showHistory(data)
     const filterInputListener = document.getElementById('filterInputListener');
     const filterInputPrise = document.getElementById('filterInputPrise');
@@ -527,7 +547,7 @@ function showHistory(data){
     listOfHistory.innerHTML=''
     
     if(data==null){
-        console.log('dddd')
+        
         return
     }
     for(i=data.length-1; 0<=i; i--){
@@ -538,6 +558,7 @@ function showHistory(data){
         const listenerElm = document.createElement('p');
         listenerElm.classList.add('histroyListener')
         listenerElm.innerHTML=dataI.listener;
+        if(dataI.listener==''){listenerElm.innerHTML='名前未設定'}
         const priseElm = document.createElement('p');
         priseElm.classList.add('histroyPrise')
         priseElm.innerHTML = dataI.prizeName
@@ -597,19 +618,19 @@ function showHistory(data){
                     // ユーザーが OK をクリックした場合の動作
                     const retrievedJsonText = localStorage.getItem("gamelog");
                     const allData = JSON.parse(retrievedJsonText);
-                    console.log()
+                    
                     const ndwData = allData.filter((item) => {
-                        console.log()
+                        
                         // Number(item.id) != dataI.id
                         if(Number(item.id) == dataI.id){
                             return false;
-                            console.log()
+                            
                         }else{
-                            console.log()
+                            
                             return true;
                         }
                     });
-                    console.log()
+                    
                     const jsonText = JSON.stringify(ndwData);
                     localStorage.setItem("gamelog", jsonText);
                     cardElm.remove();
@@ -636,7 +657,7 @@ function showHistory(data){
 
                     const retrievedJsonText = localStorage.getItem("gamelog");
                     const allData = JSON.parse(retrievedJsonText);
-                    console.log()
+                    
                     const newData = allData.map(item => {
                         if (item.id === dataI.id) {
                             // ES6のオブジェクトのスプレッド構文を使用して、新しい値を統合します。
@@ -644,7 +665,7 @@ function showHistory(data){
                         }
                         return item;  // 一致しない場合、元のアイテムをそのまま返します。
                     });
-                    console.log()
+                    
                     const jsonText = JSON.stringify(newData);
                     localStorage.setItem("gamelog", jsonText);
                     
@@ -656,7 +677,7 @@ function showHistory(data){
 }
 
 function searchHistory() {
-    const retrievedJsonText = localStorage.getItem("history");
+    const retrievedJsonText = localStorage.getItem("gamelog");
     const history = JSON.parse(retrievedJsonText);
 
     if (history === null) { return null; }
