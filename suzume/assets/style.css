@@ -99,6 +99,7 @@ body {
   text-align: right;
   box-sizing: border-box;
   position: relative;
+  padding: 4px 8px !important;
 }
 .container .setrarity .rarityInput::after {
   position: absolute;
@@ -180,6 +181,7 @@ body {
   list-style: none;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 40px;
 }
 .container .containerListUl {
   width: 100%;
