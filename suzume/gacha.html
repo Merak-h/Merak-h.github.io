@@ -311,8 +311,10 @@
     }
 
     const saveData = document.getElementById('saveData');
-    saveData.addEventListener('click',setStrage())
+    console.log(saveData)
+    saveData.addEventListener('click',()=>{setStrage()})
     function setStrage(){
+        console.log('eeee')
         const listOfN = ()=>{
             const elms = document.querySelectorAll('.cardN');
             let array = [];
