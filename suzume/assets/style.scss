@@ -188,6 +188,7 @@ body{
     }
     .containerListUl{
         width: 100%;
+        margin-bottom: 60px;
         li{
             width: 100%;
             list-style: none;
@@ -242,6 +243,12 @@ body{
         display: block;
         width: 200px;
         margin: 40px auto;
+        &:hover{
+            background-color: #0782a7;
+        }
+        &:active{
+            background-color: #9ab4bc;
+        }
     }
 }
 .rouletteContainer{
