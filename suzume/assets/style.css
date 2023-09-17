@@ -185,6 +185,7 @@ body {
 }
 .container .containerListUl {
   width: 100%;
+  margin-bottom: 60px;
 }
 .container .containerListUl li {
   width: 100%;
@@ -237,6 +238,12 @@ body {
   display: block;
   width: 200px;
   margin: 40px auto;
+}
+.container .saveDataButton:hover {
+  background-color: #0782a7;
+}
+.container .saveDataButton:active {
+  background-color: #9ab4bc;
 }
 
 .rouletteContainer {

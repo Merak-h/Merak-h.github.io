@@ -422,50 +422,55 @@ rouletteRutton.addEventListener('click',()=>{
 function roulette(){
     const retrievedJsonText = localStorage.getItem("settingDate");
     const settingData =  JSON.parse(retrievedJsonText);
-    if(settingData==null){
-    alert("アイテムが設定されてません！");
-    return false;
-   }
+//     if(settingData==null){
+//     alert("アイテムが設定されてません！");
+//     return false;
+//    }
    const prizes = settingData['prizes'];
    if(prizes['N'].length==0 && prizes['R'].length==0 && prizes['SR'].length==0 && prizes['SSR'].length==0 && prizes['UR'].length==0){
     alert("アイテムが設定されてません！");
     return false;
    }
-    const rarity = Math.random();
-    const n = Number(settingData['rarity'][0])*0.01;
-    
-    const r = Number(settingData['rarity'][1])*0.01;
-    
-    const sr = Number(settingData['rarity'][2])*0.01;
-    
-    const ssr = Number(settingData['rarity'][3])*0.01;
-    
-    const ur = Number(settingData['rarity'][4])*0.01;
-    
-    // n+r+sr+ssr+ur=１になる想定
-    if(rarity<=n+r+sr+ssr+ur!=1){
-        alert('確率の合計が100%になっていません！');
-        return false;
+   const n = Number(settingData['rarity'][0])*0.01;
+   
+   const r = Number(settingData['rarity'][1])*0.01;
+   
+   const sr = Number(settingData['rarity'][2])*0.01;
+   
+   const ssr = Number(settingData['rarity'][3])*0.01;
+   
+   const ur = Number(settingData['rarity'][4])*0.01;
+   
+   // n+r+sr+ssr+ur=１になる想定
+   if(n+r+sr+ssr+ur!=1){
+       alert('確率の合計が100%になっていません！');
+       return false;
     }
-    let setRarity = '';
-    if(rarity<=n){
-        setRarity = 'N';
-    }else if(rarity<=n+r){
-        setRarity = 'R';
-    }else if(rarity<=n+r+sr){
-        setRarity = 'SR';
-    }else if(rarity<=n+r+sr+ssr){
-        setRarity = 'SSR';
-    }else{
-        setRarity = 'UR';
-    }
+    let boolen = true;
+    while(boolen){
+        let setRarity = '';
+        const rarity = Math.random();
+        if(rarity<=n){
+            setRarity = 'N';
+        }else if(rarity<=n+r){
+            setRarity = 'R';
+        }else if(rarity<=n+r+sr){
+            setRarity = 'SR';
+        }else if(rarity<=n+r+sr+ssr){
+            setRarity = 'SSR';
+        }else{
+            setRarity = 'UR';
+        }
 
-    const prize = Math.random();
-    const length = settingData['prizes'][setRarity].length;
-    const index = Math.floor(prize*length);
-    const setPrize = settingData['prizes'][setRarity][index];
-    
-    return[setPrize, setRarity];
+        const prize = Math.random();
+        const length = settingData['prizes'][setRarity].length;
+        const index = Math.floor(prize*length);
+        const setPrize = settingData['prizes'][setRarity][index];
+        if(setPrize!=undefined){
+            boolen=false;
+            return[setPrize, setRarity];
+        }
+    }
 }
 
 function saveResult(result){
