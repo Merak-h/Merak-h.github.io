@@ -130,7 +130,9 @@
     // 初期化
     load();
     function load(){
+        console.log()
         history();
+        console.log()
         const retrievedJsonText = localStorage.getItem("settingDate");
         const settingData =  JSON.parse(retrievedJsonText);
         if(settingData===null){
@@ -311,10 +313,11 @@
     }
 
     const saveData = document.getElementById('saveData');
-    console.log(saveData)
+    console.log()
+    console.log()
+    console.log()
     saveData.addEventListener('click',()=>{setStrage()})
     function setStrage(){
-        console.log('eeee')
         const listOfN = ()=>{
             const elms = document.querySelectorAll('.cardN');
             let array = [];
@@ -486,8 +489,10 @@ function saveResult(result){
 
 }
 function history(){
-    
+    console.log()
     let data = searchHistory();
+    console.log()
+    console.log()
     showHistory(data)
     const filterInputListener = document.getElementById('filterInputListener');
     const filterInputPrise = document.getElementById('filterInputPrise');
@@ -507,14 +512,19 @@ function history(){
         
         data = searchHistory();
         
+        
         showHistory(data)
     });
 }
 function showHistory(data){
+    console.log(data)
     const listOfHistory = document.getElementById('listOfHistory');
     listOfHistory.innerHTML=''
     
-    if(data==null){return}
+    if(data==null){
+        console.log('dddd')
+        return
+    }
     for(i=data.length-1; 0<=i; i--){
         
         const dataI = data[i];
@@ -582,19 +592,19 @@ function showHistory(data){
                     // ユーザーが OK をクリックした場合の動作
                     const retrievedJsonText = localStorage.getItem("gamelog");
                     const allData = JSON.parse(retrievedJsonText);
-                    console.log(allData);
+                    console.log()
                     const ndwData = allData.filter((item) => {
-                        console.log(item.id)
+                        console.log()
                         // Number(item.id) != dataI.id
                         if(Number(item.id) == dataI.id){
                             return false;
-                            console.log(item.id)
+                            console.log()
                         }else{
-                            console.log(item.id)
+                            console.log()
                             return true;
                         }
                     });
-                    console.log(ndwData);
+                    console.log()
                     const jsonText = JSON.stringify(ndwData);
                     localStorage.setItem("gamelog", jsonText);
                     cardElm.remove();
@@ -621,7 +631,7 @@ function showHistory(data){
 
                     const retrievedJsonText = localStorage.getItem("gamelog");
                     const allData = JSON.parse(retrievedJsonText);
-                    console.log(allData);
+                    console.log()
                     const newData = allData.map(item => {
                         if (item.id === dataI.id) {
                             // ES6のオブジェクトのスプレッド構文を使用して、新しい値を統合します。
@@ -629,7 +639,7 @@ function showHistory(data){
                         }
                         return item;  // 一致しない場合、元のアイテムをそのまま返します。
                     });
-                    console.log(newData);
+                    console.log()
                     const jsonText = JSON.stringify(newData);
                     localStorage.setItem("gamelog", jsonText);
                     
