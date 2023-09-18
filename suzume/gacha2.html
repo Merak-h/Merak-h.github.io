@@ -479,7 +479,7 @@ rouletteRutton.addEventListener('click',()=>{
     rouletteRutton.classList.add('activeButton');
     rouletteRutton.disabled = true;
     setTimeout(()=>{
-        rouletteRutton.disabled = true;
+        rouletteRutton.disabled = false;
         rouletteRutton.classList.remove('activeButton');
         const relief = document.getElementById('relief');
 
