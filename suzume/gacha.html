@@ -466,6 +466,7 @@ relief.checked=reliefSaved;
 
 
 rouletteRutton.addEventListener('click',()=>{
+
     const contaierResult = document.getElementById('contaierResult');
     const inputValue = document.getElementById('listenerInput').value;
     const listenerInput = inputValue === "" ? "未設定" : inputValue;
@@ -474,38 +475,42 @@ rouletteRutton.addEventListener('click',()=>{
 
     const times = document.getElementById('times').value;
     listOfResult.innerHTML='';
-    const relief = document.getElementById('relief');
+    rouletteRutton.classList.add('activeButton');
+    setTimeout(()=>{
+        rouletteRutton.classList.remove('activeButton');
+        const relief = document.getElementById('relief');
 
 
-    
-    const retrievedJsonText = localStorage.getItem("settingDate");
-    const settingData =  JSON.parse(retrievedJsonText);
+        
+        const retrievedJsonText = localStorage.getItem("settingDate");
+        const settingData =  JSON.parse(retrievedJsonText);
 
-    for(i=0; i<times; i++){
-        let result
-        if(relief.checked && i % 10 === 9 && settingData.prizes.SSR!=''){
-            let boolen = true;
-            while(boolen){
+        for(i=0; i<times; i++){
+            let result
+            if(relief.checked && i % 10 === 9 && settingData.prizes.SSR!=''){
+                let boolen = true;
+                while(boolen){
+                    result = roulette();
+                    if(result[1]=="SSR"){boolen=false}
+                }
+            }else{
                 result = roulette();
-                if(result[1]=="SSR"){boolen=false}
             }
-        }else{
-            result = roulette();
+            if(!result){break}
+            if(i==0){listener.innerHTML=listenerInput}
+            const card = document.createElement('li');
+            listOfResult.appendChild(card);
+            const elmResultRarity = document.createElement('p');
+            elmResultRarity.innerHTML=result[1];
+            const elmResultName = document.createElement('p');
+            elmResultName.innerHTML = result[0]
+            card.appendChild(elmResultRarity);
+            card.appendChild(elmResultName);
+            result.push(listenerInput)
+            saveResult(result);
         }
-        if(!result){break}
-        if(i==0){listener.innerHTML=listenerInput}
-        const card = document.createElement('li');
-        listOfResult.appendChild(card);
-        const elmResultRarity = document.createElement('p');
-        elmResultRarity.innerHTML=result[1];
-        const elmResultName = document.createElement('p');
-        elmResultName.innerHTML = result[0]
-        card.appendChild(elmResultRarity);
-        card.appendChild(elmResultName);
-        result.push(listenerInput)
-        saveResult(result);
-    }
-    history();
+        history();
+    }, 300);
 })
 
 function roulette(){
