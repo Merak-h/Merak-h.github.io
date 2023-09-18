@@ -9,14 +9,10 @@
     href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"
     />
     <link rel="stylesheet" href="assets/style.css">
-    <title>すずめ専用ガチャ！</title>
+    <title>Document</title>
 </head>
 <body>
     <h1 class="title">甘噛すずめ専用ガチャ</h1>
-    <div class="pageArea">
-        <a class="pageLink" href="gacha2">2つ目へ ＞</a>
-        <p class="pageText">現在、1つ目のガチャを表示してます。</p>
-    </div>
     <div class="parentContainer">
         <div class="switch">
             <p class="switchl" id="switchRoulette">ルーレット</p>
@@ -77,35 +73,16 @@
                     </ul>
                 </div>
             </div>
+            <!-- <button class="saveDataButton" id="saveData">保存</button> -->
         </div>
-<!-- ############### -->
-<!-- ここからルーレット -->
-<!-- ############### -->
+
+
         <div class="container rouletteContainer">
             <h2 class="subTitle">ルーレット！</h2>
-            <div class="listenerInputArea">
-                <input class="listenerInput" id="listenerInput" type="text" placeholder="回すリスナーさんの名前！">
-                <ul class="listenerInputSuggest hidden" id="listenerInputSuggest">
-                </ul>
-            </div>
-            
-            <div class="timesArea">
-                <label class="timeslabel">
-                    <input class="timesInput" id="times" type="number" value="1">
-                </label>
-                    <ul class="timesSuggestArea hidden" id="timesSuggest">
-                        <li class="timesSuggest">23</li>
-                        <li class="timesSuggest">22</li>
-                        <li class="timesSuggest">20</li>
-                        <li class="timesSuggest">15</li>
-                        <li class="timesSuggest">11</li>
-                        <li class="timesSuggest">10</li>
-                        <li class="timesSuggest">5</li>
-                        <li class="timesSuggest">1</li>
-                    </ul>
-            </div>
-            
-
+            <input class="listenerInput" id="listenerInput" type="text" placeholder="回すリスナーさんの名前！">
+            <!-- <p class="listenerCaption">名前で判断してるから、同じ人が複数回す時は、同じ名前で登録してね！<br> 
+            逆にリスナーさんは全員違う名前で登録してね！同じ名前だと同一人物って登録しちゃうから注意！</p>-->
+            <label class="timeslabel"><input class="timesInput" id="times" type="number" value="1"></label>
             <div class="reliefArea">
                 <p class="reliefCap">10連SSR確定</p>
                 <label class="reliefBox"><input type="checkbox" class="relief" id="relief" name="relief"></label>
@@ -119,35 +96,13 @@
 
         
         </div>
-<!-- ############### -->
-<!-- 履歴 -->
-<!-- ############### -->
         <div class="container">
             <h2 class="subTitle">履歴</h2>
             <button class="filterButtonDelete" id="resetHistroyButton">履歴をリセット</button>
             <div class="searchArea">
-                <div class="filterInputListenerArea">
-                    <input class="filterInput filterInputListener" id="filterInputListener" type="text" placeholder="リスナー名">
-                    <ul class="filterInputListenerSuggest" id="filterInputListenerSuggest"></ul>
-                </div>
-                <label class="filterInputPriseLabel">景品名<select class="filterInputPrise" id="filterInputPrise"></select></label>
-                <!-- <div>
-                    <input class="filterInput" id="filterInputPrise" type="text" placeholder="景品名">
-                    <ul id="filterInputPriseSuggest"></ul>
-                </div> -->
-                <!-- <input class="filterInput" id="filterInputRarity" type="text" placeholder="レア度"> -->
-
-                <label class="rarityLabel">
-                    レア度
-                    <select class="filterRarity" id="filterInputRarity">
-                        <option value=""selected>未選択</option>
-                        <option value="N">N</option>
-                        <option value="R">R</option>
-                        <option value="SR">SR</option>
-                        <option value="SSR">SSR</option>
-                        <option value="UR">UR</option>
-                    </select>
-                </label>
+                <input class="filterInput" id="filterInputListener" type="text" placeholder="リスナー名">
+                <input class="filterInput" id="filterInputPrise" type="text" placeholder="景品名">
+                <input class="filterInput" id="filterInputRarity" type="text" placeholder="レア度">
                 <div class="filterButtons">
                     <button class="filterButton" id="filterButton">フィルターする</button>
                     <button class="filterButton" id="filterCreaButton">フィルターをクリア</button>
@@ -370,7 +325,7 @@
     
     
     saveData.addEventListener('click',()=>{
-        
+        console.log('vsfhulaui')
         setStrage();
         let e=0;
         const setRate = document.querySelectorAll('.setRate');
@@ -444,7 +399,7 @@
         }
         const jsonText = JSON.stringify(newArrayOfData);
         localStorage.setItem("settingDate", jsonText);
-        makeSuggestPrizes();
+
     }
 
 
@@ -453,29 +408,19 @@
 // ############################
 
 const rouletteRutton = document.getElementById('rouletteRutton');
-const relief = document.getElementById('relief');
-const reliefSaved=localStorage.getItem("relief") === "true";
-
-relief.checked=reliefSaved;
-
-    relief.addEventListener('change',()=>{
-        localStorage.setItem("relief", relief.checked);
-    })
-
 
 
 
 rouletteRutton.addEventListener('click',()=>{
     const contaierResult = document.getElementById('contaierResult');
     const inputValue = document.getElementById('listenerInput').value;
-    const listenerInput = inputValue === "" ? "未設定" : inputValue;
+    const listenerInput = inputValue === "" ? "名前未設定" : inputValue;
     const listener = document.getElementById('listener');
     const listOfResult = document.getElementById('listOfResult');
 
     const times = document.getElementById('times').value;
     listOfResult.innerHTML='';
     const relief = document.getElementById('relief');
-
 
     
     const retrievedJsonText = localStorage.getItem("settingDate");
@@ -589,7 +534,7 @@ function saveResult(result){
 
 }
 function history(){
-    
+    console.log('scdjclsj')
     let data = searchHistory();
     
     
@@ -617,7 +562,7 @@ function history(){
     });
 }
 function showHistory(data){
-    
+    console.log(data)
     const listOfHistory = document.getElementById('listOfHistory');
     listOfHistory.innerHTML=''
     
@@ -726,7 +671,7 @@ function showHistory(data){
                     cardElm.innerHTML="";
                     listenerElm.innerHTML=listenerInputElm.value;
                     cardElm.appendChild(listenerElm);
-                    
+                    console.log(listenerElm)
                     cardElm.appendChild(priseElm);
                     cardElm.appendChild(rarityElm);
                     cardElm.appendChild(editButton);
@@ -760,8 +705,7 @@ function searchHistory() {
 
     const listenerValue = document.getElementById('filterInputListener').value;
     const prizeNameValue = document.getElementById('filterInputPrise').value;
-    const inputValue = document.getElementById('filterInputRarity').value;
-    const prizeRarityValue = inputValue === "未選択" ? "" : inputValue;
+    const prizeRarityValue = document.getElementById('filterInputRarity').value;
 
     
     return history.filter((item) =>{
@@ -845,202 +789,6 @@ switchSetting.addEventListener('click',()=>{
 })
     
 
-// 回数のサジェスト
-
-const times = document.getElementById('times');
-const timesSuggest = document.getElementById('timesSuggest');
-const timesSuggestCard = document.querySelectorAll('.timesSuggest');
-times.addEventListener('focus',()=>{
-    
-    timesSuggest.classList.add('show');
-    timesSuggest.classList.remove('hidden');
-    overFlowToBottom();
-    // setTimeout(() => {
-    //     times.select();
-    // }, 10);
-})
-for(card of timesSuggestCard){
-    card.addEventListener('click',(e)=>{
-        times.value=e.target.innerHTML;
-        timesSuggest.classList.add('hidden');
-        timesSuggest.classList.remove('show');
-    })
-}
-times.addEventListener('keyup',(e)=>{
-    if(e.key=='Enter'){
-        timesSuggest.classList.add('hidden');
-        timesSuggest.classList.remove('show');
-        times.blur();
-    }
-})
-document.addEventListener('click',(e)=>{
-    if(e.target== timesSuggest || event.target.classList.contains('timesSuggest') || e.target== times){
-
-    }else{
-        timesSuggest.classList.add('hidden');
-        timesSuggest.classList.remove('show');
-    }
-})
-
-
-// ルーレット画面のリスナーさん入力サジェスト
-const listenerInput = document.getElementById('listenerInput')
-const listenerInputSuggest =document.getElementById('listenerInputSuggest');
-
-
-
-listenerInput.addEventListener('focus',()=>{
-    listenerInputSuggest.classList.add('show');
-    const e={key:''}
-    makeSuggest(e);
-    // setTimeout(() => {
-    //     listenerInput.select();
-    // }, 10);
-})
-listenerInput.addEventListener('keyup',(e)=>{makeSuggest(e)})
-function makeSuggest(e){
-    const retrievedJsonText = localStorage.getItem("gamelog");
-    const gamelog =  JSON.parse(retrievedJsonText);
-    if(gamelog==null ||gamelog.length==0){
-        listenerInputSuggest.classList.remove('show');
-        listenerInputSuggest.classList.add('hidden');
-        return
-    }
-    if(e.key=="Enter"){
-        listenerInput.blur();
-        listenerInputSuggest.classList.remove('show');
-        listenerInputSuggest.classList.add('hidden');
-        return
-    }
-    listenerInputSuggest.innerHTML='';
-    const inputText=listenerInput.value;
-    const filteredNames = gamelog
-    .filter(item => item.listener.includes(inputText) && item.listener !== "未設定")
-    .map(item => item.listener);
-    const uniqueNames = [...new Set(filteredNames)];
-    for(listener of uniqueNames){
-        const card = document.createElement('li');
-        card.classList.add('listenerInputSuggestCard');
-        card.innerHTML= listener;
-        listenerInputSuggest.appendChild(card);
-        card.addEventListener('click',(e)=>{
-            listenerInput.value=e.target.innerHTML;
-            listenerInputSuggest.classList.remove('show');
-            listenerInputSuggest.classList.add('hidden');
-        })
-        
-    }
-    overFlowToBottom();
-}
-document.addEventListener('click',(e)=>{
-    if(e.target== listenerInputSuggest || event.target.classList.contains('listenerInputSuggestCard') || e.target== listenerInput){
-
-    }else{
-            listenerInputSuggest.classList.remove('show');
-            listenerInputSuggest.classList.add('hidden');
-    }
-})
-
-
-overFlowToBottom();
-function overFlowToBottom(){
-    const a =document.getElementById('listenerInputSuggest');
-    const b =document.getElementById('timesSuggest');
-    const c =document.getElementById('filterInputListenerSuggest');
-    a.scrollTop = a.scrollHeight;
-    b.scrollTop = b.scrollHeight;
-    c.scrollTop = c.scrollHeight;
-}
-
-
-// <div>
-//     <input class="filterInput" id="filterInputListener" type="text" placeholder="リスナー名">
-//     <ul id="filterInputListenerSuggest"></ul>
-// </div>
-// <div>
-//     <input class="filterInput" id="filterInputPrise" type="text" placeholder="景品名">
-//     <ul id="filterInputPriseSuggest"></ul>
-// </div>
-
-// フィルター画面のリスナーさん入力サジェスト
-const filterInputListener = document.getElementById('filterInputListener')
-const filterInputListenerSuggest =document.getElementById('filterInputListenerSuggest');
-
-
-
-filterInputListener.addEventListener('focus',()=>{
-    filterInputListenerSuggest.classList.add('show');
-    const e={key:''}
-    makeSuggestF(e);
-    // setTimeout(() => {
-    //     listenerInput.select();
-    // }, 10);
-})
-filterInputListener.addEventListener('keyup',(e)=>{makeSuggestF(e)})
-function makeSuggestF(e){
-    const retrievedJsonText = localStorage.getItem("gamelog");
-    const gamelog =  JSON.parse(retrievedJsonText);
-    if(gamelog==null ||gamelog.length==0){
-        filterInputListenerSuggest.classList.remove('show');
-        filterInputListenerSuggest.classList.add('hidden');
-        return
-    }
-    if(e.key=="Enter"){
-        filterInputListener.blur();
-        filterInputListenerSuggest.classList.remove('show');
-        filterInputListenerSuggest.classList.add('hidden');
-        return
-    }
-    filterInputListenerSuggest.innerHTML='';
-    const inputText=filterInputListener.value;
-    const filteredNames = gamelog
-    .filter(item => item.listener.includes(inputText) && item.listener !== "未設定")
-    .map(item => item.listener);
-    const uniqueNames = [...new Set(filteredNames)];
-    for(listener of uniqueNames){
-        const card = document.createElement('li');
-        card.classList.add('filterInputListenerSuggestCard');
-        card.innerHTML= listener;
-        filterInputListenerSuggest.appendChild(card);
-        card.addEventListener('click',(e)=>{
-            filterInputListener.value=e.target.innerHTML;
-            filterInputListenerSuggest.classList.remove('show');
-            filterInputListenerSuggest.classList.add('hidden');
-        })
-        
-    }
-    overFlowToBottom();
-}
-document.addEventListener('click',(e)=>{
-    if(e.target== filterInputListenerSuggest || event.target.classList.contains('filterInputListenerSuggestCard') || e.target== filterInputListener){
-        
-    }else{
-        console.log('ssss')
-        filterInputListenerSuggest.classList.remove('show');
-        filterInputListenerSuggest.classList.add('hidden');
-    }
-})
-
-
-makeSuggestPrizes();
-function makeSuggestPrizes(){
-    const retrievedJsonText = localStorage.getItem("settingDate");
-    const data =  JSON.parse(retrievedJsonText);
-    const filterInputPrise = document.getElementById('filterInputPrise');
-    filterInputPrise.innerHTML="";
-    const defaultCard = document.createElement('option');
-    defaultCard.innerHTML="未設定";
-    defaultCard.value="";
-    defaultCard.selected=true;
-    filterInputPrise.appendChild(defaultCard);
-    const prizes = [].concat(...Object.values(data.prizes));
-    for(prize of prizes){
-        const card = document.createElement('option');
-        card.innerHTML=prize;
-        card.value=prize;
-        filterInputPrise.appendChild(card);
-    }
-}
 </script>
 </body>
 </html>
