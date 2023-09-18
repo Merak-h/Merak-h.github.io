@@ -897,6 +897,11 @@ listenerInput.addEventListener('keyup',(e)=>{makeSuggest(e)})
 function makeSuggest(e){
     const retrievedJsonText = localStorage.getItem("gamelog");
     const gamelog =  JSON.parse(retrievedJsonText);
+    if(gamelog==null ||gamelog.length==0){
+        listenerInputSuggest.classList.remove('show');
+        listenerInputSuggest.classList.add('hidden');
+        return
+    }
     if(e.key=="Enter"){
         listenerInput.blur();
         listenerInputSuggest.classList.remove('show');
@@ -971,6 +976,11 @@ filterInputListener.addEventListener('keyup',(e)=>{makeSuggestF(e)})
 function makeSuggestF(e){
     const retrievedJsonText = localStorage.getItem("gamelog");
     const gamelog =  JSON.parse(retrievedJsonText);
+    if(gamelog==null ||gamelog.length==0){
+        filterInputListenerSuggest.classList.remove('show');
+        filterInputListenerSuggest.classList.add('hidden');
+        return
+    }
     if(e.key=="Enter"){
         filterInputListener.blur();
         filterInputListenerSuggest.classList.remove('show');
