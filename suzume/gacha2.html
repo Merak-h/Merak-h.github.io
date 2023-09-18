@@ -475,7 +475,9 @@ rouletteRutton.addEventListener('click',()=>{
     const times = document.getElementById('times').value;
     listOfResult.innerHTML='';
     rouletteRutton.classList.add('activeButton');
+    rouletteRutton.disabled = true;
     setTimeout(()=>{
+        rouletteRutton.disabled = true;
         rouletteRutton.classList.remove('activeButton');
         const relief = document.getElementById('relief');
 
