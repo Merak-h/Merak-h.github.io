@@ -8,14 +8,14 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"
     />
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/style2.css">
     <title>すずめ専用ガチャ！</title>
 </head>
 <body>
     <h1 class="title">甘噛すずめ専用ガチャ</h1>
     <div class="pageArea">
-        <a class="pageLink" href="gacha2">2つ目へ ＞</a>
-        <p class="pageText">現在、1つ目のガチャを表示してます。</p>
+        <a class="pageLink" href="gacha">1つ目へ ＞</a>
+        <p class="pageText">現在、2つ目のガチャを表示してます。</p>
     </div>
     <div class="parentContainer">
         <div class="switch">
@@ -182,7 +182,7 @@
         
         history();
         
-        const retrievedJsonText = localStorage.getItem("settingDate");
+        const retrievedJsonText = localStorage.getItem("settingDate2");
         const settingData =  JSON.parse(retrievedJsonText);
         if(settingData===null){
             setStrage()
@@ -443,7 +443,7 @@
             }
         }
         const jsonText = JSON.stringify(newArrayOfData);
-        localStorage.setItem("settingDate", jsonText);
+        localStorage.setItem("settingDate2", jsonText);
         makeSuggestPrizes();
     }
 
@@ -454,12 +454,12 @@
 
 const rouletteRutton = document.getElementById('rouletteRutton');
 const relief = document.getElementById('relief');
-const reliefSaved=localStorage.getItem("relief") === "true";
+const reliefSaved=localStorage.getItem("relief2") === "true";
 
 relief.checked=reliefSaved;
 
     relief.addEventListener('change',()=>{
-        localStorage.setItem("relief", relief.checked);
+        localStorage.setItem("relief2", relief.checked);
     })
 
 
@@ -478,7 +478,7 @@ rouletteRutton.addEventListener('click',()=>{
 
 
     
-    const retrievedJsonText = localStorage.getItem("settingDate");
+    const retrievedJsonText = localStorage.getItem("settingDate2");
     const settingData =  JSON.parse(retrievedJsonText);
 
     for(i=0; i<times; i++){
@@ -509,7 +509,7 @@ rouletteRutton.addEventListener('click',()=>{
 })
 
 function roulette(){
-    const retrievedJsonText = localStorage.getItem("settingDate");
+    const retrievedJsonText = localStorage.getItem("settingDate2");
     const settingData =  JSON.parse(retrievedJsonText);
 //     if(settingData==null){
 //     alert("アイテムが設定されてません！");
@@ -566,7 +566,7 @@ function roulette(){
 function saveResult(result){
     let logId = 0;
     // ローカルストレージに保存
-    const retrievedJsonText = localStorage.getItem("gamelog");
+    const retrievedJsonText = localStorage.getItem("gamelog2");
     const data =  JSON.parse(retrievedJsonText);
     let history =[];
     if(data){
@@ -582,7 +582,7 @@ function saveResult(result){
     
     history.push(newResult);
     const jsonText = JSON.stringify(history);
-    localStorage.setItem("gamelog", jsonText);
+    localStorage.setItem("gamelog2", jsonText);
 
     // 履歴の所に表示
     // 履歴の変更処理
@@ -691,7 +691,7 @@ function showHistory(data){
                 const userConfirmed = confirm("本当に削除しますか？");
                 if (userConfirmed) {
                     // ユーザーが OK をクリックした場合の動作
-                    const retrievedJsonText = localStorage.getItem("gamelog");
+                    const retrievedJsonText = localStorage.getItem("gamelog2");
                     const allData = JSON.parse(retrievedJsonText);
                     
                     const ndwData = allData.filter((item) => {
@@ -707,7 +707,7 @@ function showHistory(data){
                     });
                     
                     const jsonText = JSON.stringify(ndwData);
-                    localStorage.setItem("gamelog", jsonText);
+                    localStorage.setItem("gamelog2", jsonText);
                     cardElm.remove();
 
                 } else {
@@ -731,7 +731,7 @@ function showHistory(data){
                     cardElm.appendChild(rarityElm);
                     cardElm.appendChild(editButton);
 
-                    const retrievedJsonText = localStorage.getItem("gamelog");
+                    const retrievedJsonText = localStorage.getItem("gamelog2");
                     const allData = JSON.parse(retrievedJsonText);
                     
                     const newData = allData.map(item => {
@@ -743,7 +743,7 @@ function showHistory(data){
                     });
                     
                     const jsonText = JSON.stringify(newData);
-                    localStorage.setItem("gamelog", jsonText);
+                    localStorage.setItem("gamelog2", jsonText);
                     
                     
 
@@ -753,7 +753,7 @@ function showHistory(data){
 }
 
 function searchHistory() {
-    const retrievedJsonText = localStorage.getItem("gamelog");
+    const retrievedJsonText = localStorage.getItem("gamelog2");
     const history = JSON.parse(retrievedJsonText);
 
     if (history === null) { return null; }
@@ -800,7 +800,7 @@ resetHistroyButton.addEventListener('click',()=>{
                     const listOfHistory = document.getElementById('listOfHistory');
                     listOfHistory.innerHTML='';
                     const jsonText = JSON.stringify([]);
-                    localStorage.setItem("gamelog", jsonText);
+                    localStorage.setItem("gamelog2", jsonText);
                     alert("履歴を削除しました。")
 
                 } else {
@@ -899,7 +899,7 @@ listenerInput.addEventListener('focus',()=>{
 })
 listenerInput.addEventListener('keyup',(e)=>{makeSuggest(e)})
 function makeSuggest(e){
-    const retrievedJsonText = localStorage.getItem("gamelog");
+    const retrievedJsonText = localStorage.getItem("gamelog2");
     const gamelog =  JSON.parse(retrievedJsonText);
     if(gamelog==null ||gamelog.length==0){
         listenerInputSuggest.classList.remove('show');
@@ -978,7 +978,7 @@ filterInputListener.addEventListener('focus',()=>{
 })
 filterInputListener.addEventListener('keyup',(e)=>{makeSuggestF(e)})
 function makeSuggestF(e){
-    const retrievedJsonText = localStorage.getItem("gamelog");
+    const retrievedJsonText = localStorage.getItem("gamelog2");
     const gamelog =  JSON.parse(retrievedJsonText);
     if(gamelog==null ||gamelog.length==0){
         filterInputListenerSuggest.classList.remove('show');
@@ -1024,7 +1024,7 @@ document.addEventListener('click',(e)=>{
 
 makeSuggestPrizes();
 function makeSuggestPrizes(){
-    const retrievedJsonText = localStorage.getItem("settingDate");
+    const retrievedJsonText = localStorage.getItem("settingDate2");
     const data =  JSON.parse(retrievedJsonText);
     const filterInputPrise = document.getElementById('filterInputPrise');
     filterInputPrise.innerHTML="";
