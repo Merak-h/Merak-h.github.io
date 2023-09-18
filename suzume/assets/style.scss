@@ -1,5 +1,6 @@
 body{
     background-color: rgb(0, 145, 255);
+    touch-action: manipulation;
 }
 .title{
     width: 100vw;
@@ -400,6 +401,12 @@ body{
     border-radius: 100px;
     color: #fff;
     font-weight: 600;
+    &:active{
+        background-color: #0d82a6;
+    }
+}
+.activeButton{
+    background-color: #0d82a6;
 }
 .result{
     width: fit-content;
