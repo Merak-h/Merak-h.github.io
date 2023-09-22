@@ -1,0 +1,20 @@
+gacha-list = [
+    "gacha-id":"00",
+    "gacha-name":"ガチャ名",
+    "game-settings"{
+        "rarity":["50","25","15","8","2"],
+        "prizes":{
+                {"item-id":"000", "アイテム名", "rarity":"N"},
+                {"item-id":"000", "アイテム名", "rarity":"N"},
+                {"item-id":"000", "アイテム名", "rarity":"N"}
+        }
+    }
+]
+
+gacha-history=[
+    {"history-id":"00", "player-id":"000","gacha-id":"00","item-id":"000","times":"00","timestamp":"1632214345345","edit":false}
+]
+
+player-list=[
+    {"player-id":"000", "player-name":"ガチャ引いた人の名前"}
+]
