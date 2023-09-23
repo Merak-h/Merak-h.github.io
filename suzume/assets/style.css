@@ -813,7 +813,14 @@ body {
 .volumeArea .seVolume::-moz-range-thumb {
   background-color: crimson;
 }
-.seArea:has(.se:checked) .volumeArea {
+
+.pc .volumeArea:has(.seVolumeBtn:checked) .seVolume {
+  display: block;
+}
+.pc body:has(.seVolumeBtn:checked) {
+  overflow: hidden;
+}
+.pc .seArea:has(.se:checked) .volumeArea {
   display: block;
 }
 

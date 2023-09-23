@@ -811,20 +811,24 @@ body{
         }
 
     }
-    &:has(.seVolumeBtn:checked){
-        .seVolume{
-            // display: block;
+}
+.pc{
+    .volumeArea{
+        &:has(.seVolumeBtn:checked){
+            .seVolume{
+                display: block;
+            }
         }
     }
-}
-body:has(.seVolumeBtn:checked){
-    // overflow: hidden;
-}
-.seArea:has(.se:checked){
-    .volumeArea{
-        display: block;
+    body:has(.seVolumeBtn:checked){
+        overflow: hidden;
     }
-    
+    .seArea:has(.se:checked){
+        .volumeArea{
+            display: block;
+        }
+        
+    }
 }
 .soundMute{background-image: url("images/soundMute.png");}
 .soundSmall{background-image: url("images/soundSmall.png");}
