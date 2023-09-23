@@ -463,6 +463,16 @@ const seVolumeBtn = document.getElementById('seVolumeBtn');
 const seVolumelabel =document.getElementById('seVolumelabel');
 const seVolumelabelBack =document.getElementById('seVolumelabelBack');
 
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+if (isMobileDevice()) {
+    document.body.classList.add("mobile");
+} else {
+    document.body.classList.add("pc");
+}
+
 relief.checked=reliefSaved;
 
     relief.addEventListener('change',()=>{
