@@ -813,12 +813,12 @@ body{
     }
     &:has(.seVolumeBtn:checked){
         .seVolume{
-            display: block;
+            // display: block;
         }
     }
 }
 body:has(.seVolumeBtn:checked){
-    overflow: hidden;
+    // overflow: hidden;
 }
 .seArea:has(.se:checked){
     .volumeArea{
