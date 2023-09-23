@@ -37,7 +37,7 @@ body{
     }
 }
 .parentContainer{
-    
+    overflow-x: hidden;
     width: 100vw;
     display: block;
     min-height: calc(100vh - 160px);
@@ -690,6 +690,148 @@ body{
 .relief{
     display: none;
 }
+.seArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    .seCap{
+        font-size: 12px;
+        display: block;
+        width: 80px;
+    }
+}
+.seBox{
+    display: block;
+    width: 50px;
+    height: 30px;
+    border-radius: 600px;
+    background-color: #aaaaaa;
+    margin: 0px 20px ;
+    margin-right: 0px;
+    position: relative;
+    &::before{
+        content: "";
+        display: block;
+        width: 26px;
+        height: 26px;
+        border-radius: 600px;
+        background-color: #ffffff;
+        position: absolute;
+        transform: translate(2px,2px);
+        top: 0%;
+        left: 0%;
+    }
+    &:has(.se:checked){
+        &::before{
+            left: 40%;
+            background-color: #1ddd1d;   
+        }
+    }
+    .se{
+        display: none;
+    }
+}
+.volumeArea{
+    display: none;
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    top: 0%;
+    left: 50%;
+    transform: translateX(90px);
+    z-index: 1000;
+    .seVolumelabel{
+        display: block;
+        position: relative;
+        background-color: #fff;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        border-radius: 1000px;
+        width: 30px;
+        height: 30px;
+        overflow: hidden;
+        .seVolumeBtn{
+            display: none;
+        }
+        &:active{
+                background-color: #8a8a8a;
+        }
+        &:hover{
+            box-shadow: #0008 0 0 8px;
+        }
+    }
+    .seVolumelabelBack{
+        background-position-x: left;
+        background-position-y: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        border-radius: 1000px;
+        width: 30px;
+        height: 20px;
+        margin-left: 5px;
+        margin-top: 5px;
+    }
+    .seVolume{
+        display: none;
+        position: absolute;
+        left: 50%;
+        bottom: 30px;
+        transform: translate(-54%, -70px) rotateZ(270deg);
+        z-index: 1000;
+        box-shadow: #0004 0 0 8px;
+        height: 0;
+        padding: 0;
+        -webkit-appearance: none;
+        background: #ffffff;
+        box-shadow: #0004 0 0 8px;
+        height: 4px;
+        border-radius: 8px;
+        &::-webkit-slider-runnable-track{
+            -webkit-appearance: none;
+            height: 20px;
+        }
+        &::-moz-range-track{
+            background-color: #fff;
+        }
+
+        &::-webkit-slider-thumb{
+            -webkit-appearance: none;
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-radius: 100px;
+            background-color: #43d3ff;
+            box-shadow: #0004 0 0 8px;
+            
+        }
+        &::-moz-range-thumb{
+            background-color: crimson;
+        }
+
+    }
+    &:has(.seVolumeBtn:checked){
+        .seVolume{
+            display: block;
+        }
+    }
+}
+body:has(.seVolumeBtn:checked){
+    overflow: hidden;
+}
+.seArea:has(.se:checked){
+    .volumeArea{
+        display: block;
+    }
+    
+}
+.soundMute{background-image: url("images/soundMute.png");}
+.soundSmall{background-image: url("images/soundSmall.png");}
+.soundMedium{background-image: url("images/soundMedium.png");}
+.soundLarge{background-image: url("images/soundLarge.png");}
+
+
 
 
 .hidden{

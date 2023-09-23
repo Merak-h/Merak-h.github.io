@@ -112,6 +112,18 @@
                 <p class="reliefCap">10連SSR確定</p>
                 <label class="reliefBox"><input type="checkbox" class="relief" id="relief" name="relief"></label>
             </div>
+            <div class="seArea">
+                <p class="seCap">SEの有効</p>
+                <label class="seBox"><input type="checkbox" class="se" id="se"></label>
+                <div class="volumeArea" id="volumeArea">
+                    <label class="seVolumelabel" id="seVolumelabel">
+                        <div class="seVolumelabelBack" id="seVolumelabelBack"></div>
+                        <input type="checkbox" class="seVolumeBtn" id="seVolumeBtn">
+                    </label>
+                    <input type="range" class="seVolume" min="0" max="1" step="0.01" value="0.7" id="seVolume">
+                </div>
+                
+            </div>
             <button class="rouletteButton" id="rouletteRutton">ルーレットを回す！</button>
             <div id="contaierResult">
                 <p class="result">結果</p>
@@ -301,9 +313,6 @@
             rarityInput.appendChild(opUR);
             
 
-            // const cancelButton = document.createElement('button');
-            // cancelButton.innerHTML="キャンセル";
-
             const SaveButton = document.createElement('button');
             SaveButton.innerHTML="保存";
 
@@ -314,7 +323,6 @@
             Newcard.innerHTML=''
             Newcard.appendChild(nameInput);
             Newcard.appendChild(rarityInput);
-            // Newcard.appendChild(cancelButton);
             Newcard.appendChild(deleteButton);
             Newcard.appendChild(SaveButton);
 
@@ -323,19 +331,6 @@
                 Newcard.remove();
                 setStrage();
             })
-
-            // cancelButton.addEventListener('click',()=>{
-            //     nameInput.remove();
-            //     rarityInput.remove();
-            //     rarityInput.remove();
-            //     SaveButton.remove();
-            //     cancelButton.remove();
-            //     deleteButton.remove();
-            //     Newcard.appendChild(name);
-            //     Newcard.appendChild(rarity);
-            //     Newcard.appendChild(button);
-
-            // })
             deleteButton.addEventListener('click',()=>{
                 Newcard.remove();
                 setStrage();
@@ -458,16 +453,63 @@ const rouletteRutton = document.getElementById('rouletteRutton');
 const relief = document.getElementById('relief');
 const reliefSaved=localStorage.getItem("relief") === "true";
 
+const [m1, m2, m3] = ['assets/audio/m1.mp3', 'assets/audio/m2.mp3', 'assets/audio/m3.mp3'].map(s => new Audio(s));
+
+const se = document.getElementById('se');
+const seVolume = document.getElementById('seVolume');
+const seSaved = JSON.parse(localStorage.getItem("seSaved"));
+const seVolumeInput = document.getElementById('seVolume');
+const seVolumeBtn = document.getElementById('seVolumeBtn');
+const seVolumelabel =document.getElementById('seVolumelabel');
+const seVolumelabelBack =document.getElementById('seVolumelabelBack');
+
 relief.checked=reliefSaved;
 
     relief.addEventListener('change',()=>{
         localStorage.setItem("relief", relief.checked);
     })
 
+    if(seSaved!=null){
+        se.checked=seSaved.effective;
+        const volume =seSaved.volume;
+        seVolume.value=volume;
+        [m1, m2, m3].forEach(audio => audio.volume = volume);
+        volumeIcon(volume);
+    }
+se.addEventListener('change',()=>{
+    localStorage.setItem("seSaved",JSON.stringify({effective: se.checked, volume: seVolume.value}));
+})
+
+seVolume.addEventListener('input', (event) => {
+    let volume = event.target.value;
+        localStorage.setItem("seSaved",JSON.stringify({effective: se.checked, volume: volume}));
+        [m1, m2, m3].forEach(audio => audio.volume = volume);
+        volumeIcon(volume);
+    });
+
+function volumeIcon(volume){
+    const seVolumelabel =document.getElementById('seVolumelabelBack');
+    const soundClasses = ['soundMute', 'soundSmall', 'soundMedium', 'soundLarge'];
+        soundClasses.forEach(cls => seVolumelabel.classList.remove(cls));
+        if (volume == 0) {
+            seVolumelabel.classList.add('soundMute');
+        } else if (volume <= 0.33) {
+            seVolumelabel.classList.add('soundSmall');
+        } else if (volume <= 0.66) {
+            seVolumelabel.classList.add('soundMedium');
+        } else {
+            seVolumelabel.classList.add('soundLarge');
+        }
+}
+
+document.addEventListener('click',(e)=>{
+    if(![seVolumelabel, seVolumeBtn,seVolumelabelBack].includes(e.target)){
+        seVolumeBtn.checked= false ;
+    }
+})
 
 
-
-rouletteRutton.addEventListener('click',()=>{
+rouletteRutton.addEventListener('click',async ()=>{
 
     const contaierResult = document.getElementById('contaierResult');
     const inputValue = document.getElementById('listenerInput').value;
@@ -479,8 +521,17 @@ rouletteRutton.addEventListener('click',()=>{
     listOfResult.innerHTML='';
     rouletteRutton.classList.add('activeButton');
     rouletteRutton.disabled = true;
-    setTimeout(()=>{
-        rouletteRutton.disabled = false;
+
+    if(se.checked){
+        m1.play();
+        await sleep(2000);
+        m1.pause();m1.currentTime = 0;
+        m2.play();
+
+    }else{
+        await sleep(400);
+    }
+
         rouletteRutton.classList.remove('activeButton');
         const relief = document.getElementById('relief');
 
@@ -489,6 +540,8 @@ rouletteRutton.addEventListener('click',()=>{
         const retrievedJsonText = localStorage.getItem("settingDate");
         const settingData =  JSON.parse(retrievedJsonText);
 
+
+        let resultList=[];
         for(i=0; i<times; i++){
             let result
             if(relief.checked && i % 10 === 9 && settingData.prizes.SSR!=''){
@@ -500,6 +553,10 @@ rouletteRutton.addEventListener('click',()=>{
             }else{
                 result = roulette();
             }
+            resultList.push(result);
+        }
+
+        for(result of resultList){
             if(!result){break}
             if(i==0){listener.innerHTML=listenerInput}
             const card = document.createElement('li');
@@ -514,16 +571,34 @@ rouletteRutton.addEventListener('click',()=>{
             saveResult(result);
         }
         history();
-    }, 300);
+        if(se.checked){
+            await sleep(1200);
+            m2.pause();
+            m2.currentTime = 0;
+        }
+
+        if(se.checked){
+            const rea = resultList.some(subArray => subArray[1] == "SSR" || subArray[1] == "UR");
+            if (rea) {
+                m3.play();
+                await sleep(1600);
+                m3.pause();
+                m3.currentTime = 0;
+                
+            }
+            
+        }
+        rouletteRutton.disabled = false;
+        
 })
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function roulette(){
     const retrievedJsonText = localStorage.getItem("settingDate");
-    const settingData =  JSON.parse(retrievedJsonText);
-//     if(settingData==null){
-//     alert("アイテムが設定されてません！");
-//     return false;
-//    }
+    const settingData =  JSON.parse(retrievedJsonText); 
    const prizes = settingData['prizes'];
    if(prizes['N'].length==0 && prizes['R'].length==0 && prizes['SR'].length==0 && prizes['SSR'].length==0 && prizes['UR'].length==0){
     alert("アイテムが設定されてません！");
@@ -584,8 +659,6 @@ function saveResult(result){
 
             logId = Number(data[data.length-1].id) + 1;
         }
-        // if(data[data.length-1].id!=null){
-        // }
     }
     const newResult={id:logId,listener:result[2],prizeRarity:result[1],prizeName:result[0]}
     
@@ -1024,7 +1097,6 @@ document.addEventListener('click',(e)=>{
     if(e.target== filterInputListenerSuggest || event.target.classList.contains('filterInputListenerSuggestCard') || e.target== filterInputListener){
         
     }else{
-        console.log('ssss')
         filterInputListenerSuggest.classList.remove('show');
         filterInputListenerSuggest.classList.add('hidden');
     }
